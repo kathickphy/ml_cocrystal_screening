@@ -571,8 +571,13 @@ def get_dataset():
         x_data.append(all_values[i][0].tolist()+all_values[i][1].tolist()+[all_values[i][3],all_values[i][4]])
         y_data.append([all_values[i][2]]+[all_values[i][3],all_values[i][4]])
 
-    x_data = pd.DataFrame(x_data)
-    y_data = pd.DataFrame(y_data)
+    columns_names_final = list(df_unique2.columns[columns_to_be_shortlisted]) + list(df.columns[[True if ('int' in str(i) or 'float' in str(i)) else False for i in df.dtypes.values]])
+
+    x_data = pd.DataFrame(x_data, columns = columns_names_final+columns_names_final+['api','coformer'])
+    y_data = pd.DataFrame(y_data, columns = ['cocrystalisation','api','coformer'])
+
+    
+
 
     return x_data, y_data
 
